@@ -1,0 +1,55 @@
+﻿<Window x:Class="MediaCollection.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaCollection"
+        mc:Ignorable="d"
+        Title="My Multimedia Collection" Height="700" Width="550" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:MultiMediaList x:Key="myMultimediaList">
+            <local:Multimedia Title="One Night Only" Artist="BeeGees" Genre="Pop" Year="1998" Type="CD" ArtworkPath="Artwork\BeeGees_OneNightOnly.jpg" />
+            <local:Multimedia Title="Yellow Submarine" Artist="The Beatles" Genre="Rock, Pop" Year="1969" Type="CD" ArtworkPath="Artwork\TheBeatles_YellowSubmarine.jpg" />
+            <local:Multimedia Title="Autumn in New York" Artist="Richard Gere, Winona Ryder" Genre="Drama, Romance" Year="2000" Type="DVD" ArtworkPath="Artwork\AutumnInNY.jpg" />
+            <local:Multimedia Title="The Hunt" Artist="Mads Mikkelsen, Thomas Bo Larsen" Genre="Drama" Year="2012" Type="DVD" ArtworkPath="Artwork\TheHunt.jpg" />
+            <local:Multimedia Title="In the Now" Artist="Barry Gibb" Genre="Rock" Year="2016" Type="CD" ArtworkPath="Artwork\barry-gibb-in-the-now.jpg" />
+            <local:Multimedia Title="Up in the Air" Artist="George Clooney, Vera Farmiga" Genre="Drama, Romance" Year="2009" Type="DVD" ArtworkPath="Artwork\UpInTheAir.jpg" />
+        </local:MultiMediaList>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource myMultimediaList}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="45" />
+        </Grid.RowDefinitions>
+        <ListBox Name="multimediaListBox" ItemsSource="{Binding}" Grid.Row="0" />
+        <Grid Grid.Row="1" DataContext="{Binding ElementName=multimediaListBox, Path=SelectedItem}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="350"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0">Title</Label>
+            <Label Grid.Row="1" Grid.Column="0">Artist</Label>
+            <Label Grid.Row="2" Grid.Column="0">Genre</Label>
+            <Label Grid.Row="3" Grid.Column="0">Year</Label>
+            <Label Grid.Row="4" Grid.Column="0">Type</Label>
+            <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">Artwork</Label>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Title}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Artist}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Genre}" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Year}" />
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Type}" />
+            <Image Grid.Row="5" Grid.Column="1" Source="{Binding Path=ArtworkPath}" Margin="25,25,25,25" />
+        </Grid>
+        <Button Name="AddMultimedia" Grid.Row="2" Click="AddMultimedia_Click" Height="45" Grid.RowSpan="2" VerticalAlignment="Bottom">Add Multimedia</Button>
+    </Grid>
+</Window>
